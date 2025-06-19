@@ -3,45 +3,45 @@ import React from "react";
 const plans = [
   {
     id: 1,
-    name: "Basic",
+    name: "Essentiel",
     price: "0",
-    duration: "par mois",
-    description: "Plan parfait pour commencer.",
+    duration: "à partir de",
+    description: "Idéal pour les projets simples et personnels.",
     features: [
-      "Accès limité aux fonctionnalités",
-      "Support par email",
-      "1 projet actif",
+      "1 heure de tournage caméra",
+      "Montage basique inclus",
+      "Livraison en HD",
     ],
-    buttonText: "Commencer gratuitement",
+    buttonText: "Demander un devis",
   },
   {
     id: 2,
-    name: "Pro",
-    price: "29",
-    duration: "par mois",
-    description: "Pour les utilisateurs réguliers.",
+    name: "Pro Caméra + Drone",
+    price: "399",
+    duration: "par projet",
+    description: "Tournage complet avec vues aériennes.",
     features: [
-      "Fonctionnalités complètes",
-      "Support prioritaire",
-      "Projets illimités",
-      "Accès aux mises à jour",
+      "Tournage caméra 4K (1/2 journée)",
+      "Séquences drone incluses",
+      "Montage professionnel",
+      "2 versions livrées (HD + réseaux)",
     ],
     popular: true,
-    buttonText: "S'abonner",
+    buttonText: "Réserver ce pack",
   },
   {
     id: 3,
     name: "Entreprise",
-    price: "99",
-    duration: "par mois",
-    description: "Pour les équipes et entreprises.",
+    price: "Sur-mesure",
+    duration: "",
+    description: "Pour les événements, promotions ou projets complexes.",
     features: [
-      "Gestion avancée des utilisateurs",
-      "Support dédié",
-      "Intégrations personnalisées",
-      "Formation et onboarding",
+      "Tournage multi-caméras",
+      "Plans drone avancés",
+      "Interview & mise en scène",
+      "Suivi client + corrections illimitées",
     ],
-    buttonText: "Contactez-nous",
+    buttonText: "Demander un devis personnalisé",
   },
 ];
 
@@ -50,9 +50,9 @@ export default function Pricing() {
     <section className="py-20 bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold">Tarifs</h2>
+          <h2 className="text-4xl font-extrabold">Tarifs de prestations</h2>
           <p className="mt-4 text-yellow-400 text-lg max-w-2xl mx-auto">
-            Choisissez le plan qui correspond à vos besoins.
+            Des packs flexibles pour vos besoins en vidéo professionnelle.
           </p>
         </div>
 
@@ -62,12 +62,13 @@ export default function Pricing() {
               key={plan.id}
               className={`relative bg-[#1a1a1a] rounded-2xl shadow-xl border-2 border-gray-700 hover:border-yellow-400 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2`}
             >
-
               <div className="p-8">
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
                   <div className="mb-4">
-                    <span className="text-sm text-gray-400">{plan.duration}</span>
+                    {plan.duration && (
+                      <span className="text-sm text-gray-400">{plan.duration}</span>
+                    )}
                     <div className="flex items-baseline justify-center">
                       <span className="text-4xl font-bold text-white">{plan.price}€</span>
                     </div>
@@ -103,13 +104,13 @@ export default function Pricing() {
         {/* Section Contact */}
         <div className="mt-20 text-center">
           <h3 className="text-3xl font-extrabold mb-4 text-white">
-            Besoin d'aide ? Contactez-nous.
+            Un projet en tête ? Parlons-en.
           </h3>
           <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-            Notre équipe est là pour répondre à toutes vos questions et vous accompagner.
+            Besoin de prestations spécifiques ? Je vous accompagne de l'idée à la livraison.
           </p>
           <button className="inline-block px-8 py-4 rounded-md bg-yellow-400 text-black font-bold hover:bg-yellow-500 transition-colors duration-300">
-            Contactez le support
+            Contactez-moi
           </button>
         </div>
       </div>
