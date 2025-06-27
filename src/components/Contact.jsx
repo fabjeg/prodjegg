@@ -136,7 +136,7 @@ const Contact = () => {
   const saveContactInfo = async () => {
     setSavingContact(true);
     try {
-      const response = await fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/infos', {
+      const response = await fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/contact/${contactId}', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
