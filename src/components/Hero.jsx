@@ -1,6 +1,38 @@
-import React from 'react';
+import { useState, useEffect } from "react";
 
 const Hero = ({ scrollToSection }) => {
+  const token = localStorage.getItem('token');
+  const isAuthenticated = !!token;
+
+  const [title, setTitle] = useState('');
+  const [subtitle, setSubtitle] = useState('');
+
+  useEffect(() => {
+    fetch('http://localhost:3000/hero')
+      .then(res => res.json())
+      .then(data => {
+        if (data) {
+          setTitle(data.title || '');
+          setSubtitle(data.subtitle || '');
+        }
+      })
+      .catch(err => console.error('Erreur chargement Hero:', err));
+  }, []);
+  const saveHero = () => {
+    fetch('http://localhost:3000/hero', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+
+      },
+      body: JSON.stringify({ title, subtitle })
+    })
+      .then(res => res.json())
+      .then(data => console.log('Hero mis à jour', data))
+      .catch(err => console.error('Erreur enregistrement:', err));
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-600 via-zinc-800 to-zinc-900 overflow-hidden">
       {/* Background Image */}
@@ -19,18 +51,37 @@ const Hero = ({ scrollToSection }) => {
 
       <div className="relative z-10 container mx-auto px-4 text-center">
         <div className="max-w-4xl mx-auto">
-          {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            Créateur de
-            <span className="bg-gradient-to-r from-yellow-100 to-yellow-400 bg-clip-text text-transparent">
-              {' '}Vidéos Drone
-            </span>
-          </h1>
 
-          {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Capturez des perspectives uniques et donnez vie à vos projets avec des prises de vue aériennes professionnelles
-          </p>
+          {/* Main Heading */}
+          {/* Titre principal */}
+          {isAuthenticated ? (
+            <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              onBlur={saveHero}
+              className="text-5xl md:text-7xl font-bold text-white mb-6 text-center bg-transparent outline-none border-b border-yellow-300 focus:border-yellow-500"
+            />
+          ) : (
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+              {title.split('Vidéos Drone')[0]}
+              <span className="bg-gradient-to-r from-yellow-100 to-yellow-400 bg-clip-text text-transparent">
+              </span>
+            </h1>
+          )}
+
+          {/* Sous-titre */}
+          {isAuthenticated ? (
+            <textarea
+              value={subtitle}
+              onChange={(e) => setSubtitle(e.target.value)}
+              onBlur={saveHero}
+              className="text-xl md:text-2xl text-blue-100 mb-8 w-full text-center bg-transparent outline-none resize-none border-b border-blue-200 focus:border-yellow-400"
+            />
+          ) : (
+            <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-2xl mx-auto leading-relaxed">
+              {subtitle}
+            </p>
+          )}
 
           {/* Features */}
           <div className="flex flex-wrap justify-center gap-6 mb-12">

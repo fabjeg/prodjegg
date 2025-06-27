@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/prodjegg.png';
+import logoC from '../assets/imgcache.png'
 
-const Header = ({ activeSection, scrollToSection }) => {
+const Header = ({ activeSection, scrollToSection, isLoggedIn, onLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
@@ -10,6 +12,11 @@ const Header = ({ activeSection, scrollToSection }) => {
     { id: 'pricing', label: 'Tarifs' },
     { id: 'contact', label: 'Contact' }
   ];
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Supprime le token
+    onLogout(); // Met à jour l'état de connexion
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-yellow-500 backdrop-blur-sm border-b border-gray-200">
@@ -22,6 +29,32 @@ const Header = ({ activeSection, scrollToSection }) => {
               alt="logo"
               className="h-10 sm:h-12 md:h-14 w-auto object-contain max-h-14"
             />
+          </div>
+
+          {/* Logo du milieu - Connexion/Déconnexion */}
+          <div className="flex items-center">
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="transition-transform hover:scale-105"
+                title="Se déconnecter"
+              >
+                <img
+                  src={logoC}
+                  alt="Se déconnecter"
+                  className="h-10 sm:h-12 md:h-14 w-auto object-contain max-h-14"
+                />
+              </button>
+            ) : (
+              <Link to="/login" title="Se connecter">
+                <img
+                  src={logoC}
+                  alt="Se déconnecter"
+                  className="h-10 sm:h-12 md:h-14 w-auto object-contain max-h-14 opacity-0 cursor-pointer"
+                />
+
+              </Link>
+            )}
           </div>
 
           {/* Desktop Navigation */}

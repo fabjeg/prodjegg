@@ -1,51 +1,52 @@
-import React from "react";
-
-const plans = [
-  {
-    id: 1,
-    name: "Essentiel",
-    price: "0",
-    duration: "à partir de",
-    description: "Idéal pour les projets simples et personnels.",
-    features: [
-      "1 heure de tournage caméra",
-      "Montage basique inclus",
-      "Livraison en HD",
-    ],
-    buttonText: "Demander un devis",
-  },
-  {
-    id: 2,
-    name: "Pro Caméra + Drone",
-    price: "399",
-    duration: "par projet",
-    description: "Tournage complet avec vues aériennes.",
-    features: [
-      "Tournage caméra 4K (1/2 journée)",
-      "Séquences drone incluses",
-      "Montage professionnel",
-      "2 versions livrées (HD + réseaux)",
-    ],
-    popular: true,
-    buttonText: "Réserver ce pack",
-  },
-  {
-    id: 3,
-    name: "Entreprise",
-    price: "Sur-mesure",
-    duration: "",
-    description: "Pour les événements, promotions ou projets complexes.",
-    features: [
-      "Tournage multi-caméras",
-      "Plans drone avancés",
-      "Interview & mise en scène",
-      "Suivi client + corrections illimitées",
-    ],
-    buttonText: "Demander un devis personnalisé",
-  },
-];
+import { useEffect, useState } from 'react';
 
 export default function Pricing() {
+  const [plans, setPlans] = useState([]);
+  const token = localStorage.getItem('token');
+  const isAuthenticated = !!token;
+
+  useEffect(() => {
+    fetch('http://localhost:3000/pricing')
+      .then(res => res.json())
+      .then(data => setPlans(Array.isArray(data) ? data : []))
+      .catch(err => console.error('Erreur chargement plans :', err));
+  }, []);
+
+  const handleChange = (id, field, value) => {
+    setPlans(prev =>
+      prev.map(plan =>
+        plan._id === id ? { ...plan, [field]: value } : plan
+      )
+    );
+  };
+
+  const handleFeatureChange = (id, index, value) => {
+    setPlans(prev =>
+      prev.map(plan =>
+        plan._id === id
+          ? {
+            ...plan,
+            features: plan.features.map((f, i) => (i === index ? value : f)),
+          }
+          : plan
+      )
+    );
+  };
+
+  const savePlan = (id, planData) => {
+    fetch(`http://localhost:3000/pricing/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(planData),
+    })
+      .then(res => res.json())
+      .then(data => console.log('Plan mis à jour :', data))
+      .catch(err => console.error('Erreur update plan :', err));
+  };
+
   return (
     <section className="py-20 bg-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,24 +58,63 @@ export default function Pricing() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {plans.map((plan) => (
+          {plans.map(plan => (
             <div
-              key={plan.id}
-              className={`relative bg-[#1a1a1a] rounded-2xl shadow-xl border-2 border-gray-700 hover:border-yellow-400 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2`}
+              key={plan._id}
+              className="relative bg-[#1a1a1a] rounded-2xl shadow-xl border-2 border-gray-700 hover:border-yellow-400 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
             >
               <div className="p-8">
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                  {isAuthenticated ? (
+                    <input
+                      value={plan.name}
+                      onChange={e => handleChange(plan._id, 'name', e.target.value)}
+                      onBlur={() => savePlan(plan._id, plan)}
+                      className="text-2xl font-bold mb-2 bg-transparent text-white border-b border-yellow-400 outline-none text-center"
+                    />
+                  ) : (
+                    <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
+                  )}
+
                   <div className="mb-4">
                     {plan.duration && (
-                      <span className="text-sm text-gray-400">{plan.duration}</span>
+                      isAuthenticated ? (
+                        <input
+                          value={plan.duration}
+                          onChange={e => handleChange(plan._id, 'duration', e.target.value)}
+                          onBlur={() => savePlan(plan._id, plan)}
+                          className="text-sm text-gray-400 bg-transparent border-b border-yellow-400 outline-none text-center"
+                        />
+                      ) : (
+                        <span className="text-sm text-gray-400">{plan.duration}</span>
+                      )
                     )}
                     <div className="flex items-baseline justify-center">
-                      <span className="text-4xl font-bold text-white">{plan.price}€</span>
+                      {isAuthenticated ? (
+                        <input
+                          value={plan.price}
+                          onChange={e => handleChange(plan._id, 'price', e.target.value)}
+                          onBlur={() => savePlan(plan._id, plan)}
+                          className="text-4xl font-bold text-white bg-transparent border-b border-yellow-400 outline-none text-center"
+                        />
+                      ) : (
+                        <span className="text-4xl font-bold text-white">{plan.price}€</span>
+                      )}
                     </div>
                   </div>
-                  <p className="text-gray-400 text-sm">{plan.description}</p>
+
+                  {isAuthenticated ? (
+                    <textarea
+                      value={plan.description}
+                      onChange={e => handleChange(plan._id, 'description', e.target.value)}
+                      onBlur={() => savePlan(plan._id, plan)}
+                      className="text-sm text-gray-400 bg-transparent border-b border-yellow-400 outline-none text-center w-full resize-none"
+                    />
+                  ) : (
+                    <p className="text-gray-400 text-sm">{plan.description}</p>
+                  )}
                 </div>
+
                 <ul className="mb-8 space-y-4 text-gray-300">
                   {plan.features.map((feature, idx) => (
                     <li key={idx} className="flex items-center">
@@ -87,31 +127,37 @@ export default function Pricing() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
-                      {feature}
+                      {isAuthenticated ? (
+                        <input
+                          value={feature}
+                          onChange={e => handleFeatureChange(plan._id, idx, e.target.value)}
+                          onBlur={() => savePlan(plan._id, plan)}
+                          className="bg-transparent border-b border-yellow-400 outline-none w-full"
+                        />
+                      ) : (
+                        feature
+                      )}
                     </li>
                   ))}
                 </ul>
-                <button
-                  className={`w-full rounded-md py-3 text-black font-semibold bg-yellow-400 hover:bg-yellow-500 transition-colors duration-300`}
-                >
-                  {plan.buttonText}
-                </button>
+
+                {isAuthenticated ? (
+                  <input
+                    value={plan.buttonText}
+                    onChange={e => handleChange(plan._id, 'buttonText', e.target.value)}
+                    onBlur={() => savePlan(plan._id, plan)}
+                    className="w-full rounded-md py-3 text-black font-semibold bg-yellow-400 text-center"
+                  />
+                ) : (
+                  <button
+                    className="w-full rounded-md py-3 text-black font-semibold bg-yellow-400 hover:bg-yellow-500 transition-colors duration-300"
+                  >
+                    {plan.buttonText}
+                  </button>
+                )}
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Section Contact */}
-        <div className="mt-20 text-center">
-          <h3 className="text-3xl font-extrabold mb-4 text-white">
-            Un projet en tête ? Parlons-en.
-          </h3>
-          <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-            Besoin de prestations spécifiques ? Je vous accompagne de l'idée à la livraison.
-          </p>
-          <button className="inline-block px-8 py-4 rounded-md bg-yellow-400 text-black font-bold hover:bg-yellow-500 transition-colors duration-300">
-            Contactez-moi
-          </button>
         </div>
       </div>
     </section>
