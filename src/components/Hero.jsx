@@ -8,7 +8,7 @@ const Hero = ({ scrollToSection }) => {
   const [subtitle, setSubtitle] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3000/hero')
+    fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/hero')
       .then(res => res.json())
       .then(data => {
         if (data) {
@@ -19,7 +19,7 @@ const Hero = ({ scrollToSection }) => {
       .catch(err => console.error('Erreur chargement Hero:', err));
   }, []);
   const saveHero = () => {
-    fetch('http://localhost:3000/hero', {
+    fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/hero', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

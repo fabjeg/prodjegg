@@ -47,7 +47,7 @@ const Contact = () => {
 
   // Chargement initial des données
   useEffect(() => {
-    fetch('http://localhost:3000/contact-details')
+    fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/contact-details')
       .then(res => {
         if (!res.ok) throw new Error('Erreur récupération infos contact');
         return res.json();
@@ -66,7 +66,7 @@ const Contact = () => {
         setLoadingContact(false);
       });
 
-    fetch('http://localhost:3000/why-choose-us')
+    fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/why-choose-us')
       .then(res => {
         if (!res.ok) throw new Error('Erreur récupération "Pourquoi choisir"');
         return res.json();
@@ -96,7 +96,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('http://localhost:3000/contact-form', {
+      const response = await fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/contact-form', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -136,7 +136,7 @@ const Contact = () => {
   const saveContactInfo = async () => {
     setSavingContact(true);
     try {
-      const response = await fetch('http://localhost:3000/contact/infos', {
+      const response = await fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/infos', {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -190,7 +190,7 @@ const Contact = () => {
   const saveWhyChooseUs = async () => {
     setSavingWhyChoose(true);
     try {
-      const response = await fetch('http://localhost:3000/why-choose-us', {
+      const response = await fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/why-choose-us', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

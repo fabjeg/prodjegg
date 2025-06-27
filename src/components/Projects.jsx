@@ -18,7 +18,8 @@ const Projects = () => {
   ];
 
   useEffect(() => {
-    fetch('http://localhost:3000/projects')
+    fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/projects')
+
       .then(res => res.json())
       .then(setProjects)
       .catch(console.error);
@@ -27,12 +28,13 @@ const Projects = () => {
   const handleDelete = (id) => {
     if (!window.confirm('Supprimer ce projet ?')) return;
 
-    fetch(`http://localhost:3000/projects/${id}`, {
+    fetch(`https://prodjegg-dd3ce5daf8c5.herokuapp.com/projects/${id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
+
       .then((res) => {
         if (!res.ok) throw new Error('Erreur lors de la suppression');
         setProjects(prev => prev.filter(p => p._id !== id));

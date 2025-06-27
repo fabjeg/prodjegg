@@ -119,7 +119,7 @@ const Addvideo = ({ onProjectAdded }) => {
             // VRAIE logique d'appel API vers MongoDB
             const token = localStorage.getItem('token'); // Récupération du vrai token
 
-            const res = await fetch('http://localhost:3000/projects', {
+            const res = await fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/projects', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

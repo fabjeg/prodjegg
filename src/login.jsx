@@ -18,7 +18,7 @@ const Login = ({ onLoginSuccess }) => {
         e.preventDefault();
         setLoading(true);
 
-        fetch('http://localhost:3000/login', {
+        fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(credentials),

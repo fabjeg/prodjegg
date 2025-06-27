@@ -6,7 +6,7 @@ export default function Pricing() {
   const isAuthenticated = !!token;
 
   useEffect(() => {
-    fetch('http://localhost:3000/pricing')
+    fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/pricing')
       .then(res => res.json())
       .then(data => setPlans(Array.isArray(data) ? data : []))
       .catch(err => console.error('Erreur chargement plans :', err));
