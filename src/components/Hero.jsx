@@ -37,11 +37,32 @@ const Hero = ({ scrollToSection }) => {
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-600 via-zinc-800 to-zinc-900 overflow-hidden">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+        className="absolute inset-0 w-full h-full pointer-events-none z-0"
         style={{
-          backgroundImage: `url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPgogICAgPC9wYXR0ZXJuPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPgo8L3N2Zz4=')`
+          borderTopLeftRadius: "2rem",
+          borderBottomRightRadius: "2rem",
+          overflow: "hidden",
         }}
-      />
+      >
+        <iframe
+          className="w-full h-full object-cover"
+          src="https://www.youtube.com/embed/fT3RJVhjdPI?autoplay=1&mute=1&controls=0&loop=1&playlist=fT3RJVhjdPI"
+          title="YouTube video background"
+          frameBorder="0"
+          allow="autoplay; fullscreen"
+          allowFullScreen
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            pointerEvents: "none",
+            zIndex: 0,
+            // plus besoin de border radius ici
+          }}
+        ></iframe>
+      </div>
 
       {/* Floating Elements */}
       <div className="absolute inset-0 overflow-hidden">

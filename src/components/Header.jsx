@@ -9,7 +9,7 @@ const Header = ({ activeSection, scrollToSection, isLoggedIn, onLogout }) => {
   const menuItems = [
     { id: 'home', label: 'Accueil' },
     { id: 'projects', label: 'Projets' },
-    { id: 'pricing', label: 'Tarifs' },
+    // { id: 'pricing', label: 'Tarifs' },
     { id: 'contact', label: 'Contact' }
   ];
 

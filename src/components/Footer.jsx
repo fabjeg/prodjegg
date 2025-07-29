@@ -81,9 +81,9 @@ const Footer = () => {
               </div>
             </div>
 
-            <p className="text-gray-300 mb-6 max-w-md">
-              Créateur de vidéos aériennes professionnelles, je donne vie à vos projets avec des prises de vue
-              spectaculaires et une expertise technique reconnue.
+            <p className="text-gray-300 mb-6 max-w-md p-4">
+              Vidéo & Drone en Bretagne
+              Spécialiste de la production audiovisuelle, nous sublimons vos projets grâce à des prises de vue aériennes et vidéos professionnelles. Que ce soit pour l’immobilier, vos événements ou vos campagnes commerciales, nous créons des contenus uniques pour booster votre visibilité.
             </p>
 
             <div className="space-y-3">
@@ -93,7 +93,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <span className="text-gray-300">contact@dronevision.fr</span>
+                <span className="text-gray-300">prodjegg@gmail.com</span>
               </div>
 
               <div className="flex items-center space-x-3">
@@ -102,7 +102,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <span className="text-gray-300">+33 6 12 34 56 78</span>
+                <span className="text-gray-300">+33 6 37 34 66 85</span>
               </div>
             </div>
           </div>
@@ -144,34 +144,34 @@ const Footer = () => {
 
         {/* Certifications & Social */}
         <div className="border-t border-gray-800 pt-8 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Certifications */}
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Certifications</h3>
-              <div className="space-y-2 text-sm text-gray-300">
-                <div className="flex items-center space-x-2">
-                  <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>Télépilote certifié DGAC</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>Assurance RC Professionnelle</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>Déclarations préfectorales à jour</span>
-                </div>
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center"> */}
+          {/* Certifications */}
+          <div className="mx-auto text-center">
+            <h3 className="text-lg font-semibold mb-4">Certifications</h3>
+            <div className="space-y-2 text-sm text-gray-300">
+              <div className="flex items-center justify-center space-x-2">
+                <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span>Télépilote certifié DGAC : CATS</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span>Assurance RC Professionnelle</span>
+              </div>
+              <div className="flex items-center justify-center space-x-2">
+                <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                <span>Déclarations préfectorales à jour</span>
               </div>
             </div>
+          </div>
 
-            {/* Social Media */}
-            <div>
+          {/* Social Media */}
+          {/* <div>
               <h3 className="text-lg font-semibold mb-4">Suivez-nous</h3>
               <div className="flex space-x-4">
                 {socialLinks.map((social) => (
@@ -188,8 +188,8 @@ const Footer = () => {
               <p className="text-sm text-gray-400 mt-4">
                 Découvrez nos dernières créations et coulisses de tournage
               </p>
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
         </div>
 
         {/* Bottom Footer */}

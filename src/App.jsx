@@ -71,9 +71,9 @@ function App() {
                 <section id="projects">
                   <Projects isLoggedIn={isLoggedIn} />
                 </section>
-                <section id="pricing">
+                {/* <section id="pricing">
                   <Pricing />
-                </section>
+                </section> */}
                 <section id="contact">
                   <Contact />
                 </section>
