@@ -541,7 +541,7 @@ const Contact = () => {
               <div className="bg-white/10 backdrop-blur-md rounded-3xl shadow-lg p-10 border border-white/20 text-white">
                 <div className="flex justify-between items-center mb-6">
                   <h4 className="text-2xl font-semibold" style={{ color: '#FFD500' }}>
-                    Pourquoi choisir Drones Vision ?
+                    Pourquoi choisir Prodjegg ?
                   </h4>
                   {isAuthenticated && (
                     <div className="space-x-2">

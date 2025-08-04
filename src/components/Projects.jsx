@@ -214,6 +214,7 @@ const Projects = () => {
         )}
 
         {/* Modal modification */}
+        {/* Modal modification */}
         {editingVideo && (
           <div
             className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
@@ -251,6 +252,25 @@ const Projects = () => {
                   className="w-full p-2 rounded bg-gray-800 text-white"
                   placeholder="URL de la vidéo"
                 />
+
+                {/* Nouveau champ pour changer l'image */}
+                <input
+                  type="text"
+                  value={editingVideo.thumbnail || ''}
+                  onChange={(e) => setEditingVideo({ ...editingVideo, thumbnail: e.target.value })}
+                  className="w-full p-2 rounded bg-gray-800 text-white"
+                  placeholder="URL de l'image (miniature)"
+                />
+
+                {/* Aperçu de l'image */}
+                {editingVideo.thumbnail && (
+                  <img
+                    src={editingVideo.thumbnail}
+                    alt="Aperçu"
+                    className="w-full h-40 object-cover rounded"
+                  />
+                )}
+
                 <select
                   value={editingVideo.category}
                   onChange={(e) => setEditingVideo({ ...editingVideo, category: e.target.value })}
@@ -280,6 +300,7 @@ const Projects = () => {
             </div>
           </div>
         )}
+
       </div>
     </section>
   );
