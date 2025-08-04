@@ -5,6 +5,7 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [editingVideo, setEditingVideo] = useState(null);
 
   const token = localStorage.getItem('token');
   const isAuthenticated = !!token;
@@ -19,7 +20,6 @@ const Projects = () => {
 
   useEffect(() => {
     fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/projects')
-
       .then(res => res.json())
       .then(setProjects)
       .catch(console.error);
@@ -30,11 +30,8 @@ const Projects = () => {
 
     fetch(`https://prodjegg-dd3ce5daf8c5.herokuapp.com/projects/${id}`, {
       method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+      headers: { Authorization: `Bearer ${token}` }
     })
-
       .then((res) => {
         if (!res.ok) throw new Error('Erreur lors de la suppression');
         setProjects(prev => prev.filter(p => p._id !== id));
@@ -42,6 +39,31 @@ const Projects = () => {
       .catch(err => {
         console.error(err);
         alert("Échec de la suppression");
+      });
+  };
+
+  const handleUpdate = (id, updatedData) => {
+    fetch(`https://prodjegg-dd3ce5daf8c5.herokuapp.com/projects/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updatedData),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Erreur lors de la mise à jour');
+        return res.json();
+      })
+      .then((updatedProject) => {
+        setProjects(prev =>
+          prev.map((p) => (p._id === id ? updatedProject : p))
+        );
+        setEditingVideo(null);
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Échec de la mise à jour");
       });
   };
 
@@ -133,12 +155,20 @@ const Projects = () => {
                         Regarder
                       </button>
                       {isAuthenticated && (
-                        <button
-                          onClick={() => handleDelete(project._id)}
-                          className="text-red-400 hover:text-red-600 font-semibold text-sm"
-                        >
-                          Supprimer
-                        </button>
+                        <>
+                          <button
+                            onClick={() => setEditingVideo(project)}
+                            className="text-blue-400 hover:text-blue-600 font-semibold text-sm"
+                          >
+                            Modifier
+                          </button>
+                          <button
+                            onClick={() => handleDelete(project._id)}
+                            className="text-red-400 hover:text-red-600 font-semibold text-sm"
+                          >
+                            Supprimer
+                          </button>
+                        </>
                       )}
                     </div>
                   </div>
@@ -148,6 +178,7 @@ const Projects = () => {
           })}
         </div>
 
+        {/* Modal vidéo */}
         {selectedVideo && (
           <div
             className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
@@ -178,6 +209,74 @@ const Projects = () => {
                 />
               </div>
               <p className="text-gray-300">{selectedVideo.description}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Modal modification */}
+        {editingVideo && (
+          <div
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            onClick={() => setEditingVideo(null)}
+          >
+            <div
+              className="bg-gray-900 rounded-xl p-6 max-w-lg w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="text-2xl font-bold text-yellow-400 mb-4">Modifier le projet</h3>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleUpdate(editingVideo._id, editingVideo);
+                }}
+                className="space-y-4"
+              >
+                <input
+                  type="text"
+                  value={editingVideo.title}
+                  onChange={(e) => setEditingVideo({ ...editingVideo, title: e.target.value })}
+                  className="w-full p-2 rounded bg-gray-800 text-white"
+                  placeholder="Titre"
+                />
+                <textarea
+                  value={editingVideo.description}
+                  onChange={(e) => setEditingVideo({ ...editingVideo, description: e.target.value })}
+                  className="w-full p-2 rounded bg-gray-800 text-white"
+                  placeholder="Description"
+                />
+                <input
+                  type="text"
+                  value={editingVideo.videoUrl}
+                  onChange={(e) => setEditingVideo({ ...editingVideo, videoUrl: e.target.value })}
+                  className="w-full p-2 rounded bg-gray-800 text-white"
+                  placeholder="URL de la vidéo"
+                />
+                <select
+                  value={editingVideo.category}
+                  onChange={(e) => setEditingVideo({ ...editingVideo, category: e.target.value })}
+                  className="w-full p-2 rounded bg-gray-800 text-white"
+                >
+                  {categories.map(cat => (
+                    <option key={cat.id} value={cat.id}>{cat.label}</option>
+                  ))}
+                </select>
+
+                <div className="flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setEditingVideo(null)}
+                    className="px-4 py-2 bg-gray-600 rounded hover:bg-gray-500"
+                  >
+                    Annuler
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-300"
+                  >
+                    Enregistrer
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}

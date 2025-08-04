@@ -136,7 +136,7 @@ const Contact = () => {
   const saveContactInfo = async () => {
     setSavingContact(true);
     try {
-      const response = await fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/contact/${contactId}', {
+      const response = await fetch(`https://prodjegg-dd3ce5daf8c5.herokuapp.com/contact-form`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -144,6 +144,7 @@ const Contact = () => {
         },
         body: JSON.stringify(editContactData)
       });
+
 
 
       if (!response.ok) throw new Error('Erreur lors de la sauvegarde');

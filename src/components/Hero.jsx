@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 const Hero = ({ scrollToSection }) => {
   const token = localStorage.getItem('token');
@@ -18,13 +19,13 @@ const Hero = ({ scrollToSection }) => {
       })
       .catch(err => console.error('Erreur chargement Hero:', err));
   }, []);
+
   const saveHero = () => {
     fetch('https://prodjegg-dd3ce5daf8c5.herokuapp.com/hero', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
-
       },
       body: JSON.stringify({ title, subtitle })
     })
@@ -35,6 +36,14 @@ const Hero = ({ scrollToSection }) => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-600 via-zinc-800 to-zinc-900 overflow-hidden">
+      <Helmet>
+        <title>{title || 'Prodjegg - Vidéaste drone et caméra'}</title>
+        <meta
+          name="description"
+          content={subtitle || 'Vidéaste professionnel spécialisé en vidéos drone et caméra pour maisons, événements, entreprises.'}
+        />
+      </Helmet>
+
       {/* Background Image */}
       <div
         className="absolute inset-0 w-full h-full pointer-events-none z-0"
@@ -59,7 +68,6 @@ const Hero = ({ scrollToSection }) => {
             height: "100%",
             pointerEvents: "none",
             zIndex: 0,
-            // plus besoin de border radius ici
           }}
         ></iframe>
       </div>
@@ -74,7 +82,6 @@ const Hero = ({ scrollToSection }) => {
         <div className="max-w-4xl mx-auto">
 
           {/* Main Heading */}
-          {/* Titre principal */}
           {isAuthenticated ? (
             <input
               value={title}
@@ -85,8 +92,7 @@ const Hero = ({ scrollToSection }) => {
           ) : (
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
               {title.split('Vidéos Drone')[0]}
-              <span className="bg-gradient-to-r from-yellow-100 to-yellow-400 bg-clip-text text-transparent">
-              </span>
+              <span className="bg-gradient-to-r from-yellow-100 to-yellow-400 bg-clip-text text-transparent"></span>
             </h1>
           )}
 
@@ -103,7 +109,6 @@ const Hero = ({ scrollToSection }) => {
               {subtitle}
             </p>
           )}
-
           {/* Features */}
           <div className="flex flex-wrap justify-center gap-6 mb-12">
             <div className="flex items-center space-x-2 text-blue-200">
